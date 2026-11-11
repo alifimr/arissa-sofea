@@ -1,0 +1,365 @@
+
+#root {
+  min-height: 100vh;
+}
+
+.birthday-app {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background:
+    radial-gradient(ellipse at 50% 45%, #fffaf5 0%, #f9f1ed 65%, #f1e4df 100%);
+}
+
+.birthday-app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
+}
+
+.calendar-scene,
+.envelope-scene {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  animation: scene-enter 1s ease both;
+}
+
+.calendar {
+  width: min(310px, 85vw);
+  background: #fffdf9;
+  border: 1px solid #eadfd7;
+  box-shadow: 0 25px 65px rgba(100, 65, 55, .13);
+  position: relative;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.calendar-clickable {
+  cursor: pointer;
+  animation: calendar-float 4s ease-in-out infinite;
+}
+
+.calendar-clickable:hover {
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 35px 75px rgba(100, 65, 55, .19);
+}
+
+.calendar-top {
+  height: 43px;
+  display: grid;
+  place-items: center;
+  background: #a96e79;
+  color: #fff9f5;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.calendar-body {
+  padding: 35px 20px 28px;
+}
+
+.calendar-month {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  letter-spacing: 5px;
+  color: #a96e79;
+}
+
+.calendar-day {
+  font-family: 'Playfair Display', serif;
+  font-size: 125px;
+  line-height: 1.25;
+  color: #61484a;
+}
+
+.calendar-year {
+  display: inline-block;
+  min-width: 4ch;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #a96e79;
+  transform-origin: center bottom;
+  backface-visibility: hidden;
+}
+
+.year-flip {
+  animation: year-flip .26s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.calendar-bottom {
+  padding: 15px;
+  border-top: 1px solid #eee4dc;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #ad8987;
+}
+
+.envelope-caption {
+  margin-top: 35px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #a58280;
+}
+
+.calendar-fading {
+  animation: calendar-fade 1.2s ease forwards;
+}
+
+/* FIREWORKS */
+
+.fireworks-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #9b6570;
+  animation: scene-enter 1s ease both;
+}
+
+.birthday-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(35px, 8vw, 70px);
+  font-weight: 400;
+  text-align: center;
+  text-shadow: 0 2px 25px rgba(255,255,255,.9);
+}
+
+.fireworks-layer p {
+  font-size: 12px;
+  letter-spacing: 5px;
+}
+
+.firework {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #d69b80;
+  box-shadow:
+    0 -45px #d69b80,
+    32px -32px #dba8a4,
+    45px 0 #d69b80,
+    32px 32px #e5c3a0,
+    0 45px #dba8a4,
+    -32px 32px #d69b80,
+    -45px 0 #e5c3a0,
+    -32px -32px #dba8a4;
+  animation: firework-burst 1.4s ease-out infinite;
+}
+
+.firework-one {
+  top: 23%;
+  left: 25%;
+}
+
+.firework-two {
+  top: 28%;
+  right: 25%;
+  animation-delay: .4s;
+}
+
+.firework-three {
+  bottom: 24%;
+  left: 20%;
+  animation-delay: .8s;
+}
+
+.firework-four {
+  bottom: 25%;
+  right: 20%;
+  animation-delay: .2s;
+}
+
+/* ENVELOPE */
+
+.envelope-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.envelope {
+  position: relative;
+  width: min(320px, 84vw);
+  height: 205px;
+  filter: drop-shadow(0 22px 24px rgba(90, 55, 50, .18));
+  transition: transform .4s ease;
+}
+
+.envelope-button:hover .envelope {
+  transform: translateY(-8px) rotate(-2deg);
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid #d7afa4;
+  border-radius: 4px;
+  background: linear-gradient(145deg, #efcfc3, #dfb5aa);
+}
+
+.envelope-front {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(145deg, #f4dcd1, #e9c6ba);
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 -1px 1px rgba(155, 100, 90, .12));
+}
+
+.envelope-flap {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: linear-gradient(160deg, #f1d5ca, #dfb5aa);
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: top center;
+  filter: drop-shadow(0 2px 2px rgba(120, 70, 65, .12));
+}
+
+.wax-seal {
+  position: absolute;
+  z-index: 4;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  padding-top: 3px;
+  background: linear-gradient(145deg, #c87982, #984e5b);
+  clip-path: polygon(50% 96%, 8% 55%, 1% 39%, 2% 23%, 11% 10%, 24% 5%, 36% 9%, 50% 27%, 64% 9%, 76% 5%, 89% 10%, 98% 23%, 99% 39%, 92% 55%);
+  color: #ffe9e4;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  line-height: 1;
+  text-shadow: 0 1px 1px rgba(90, 35, 45, .35);
+  filter: drop-shadow(0 4px 4px rgba(80, 40, 40, .2));
+}
+
+/* LETTER */
+
+.letter {
+  position: relative;
+  width: min(580px, 90vw);
+  min-height: 430px;
+  max-height: 75vh;
+  overflow-y: auto;
+  padding: 55px clamp(25px, 8vw, 65px);
+  background-color: #fffdf8;
+  background-image:
+    linear-gradient(rgba(255,255,255,.22), rgba(245,232,211,.18)),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper-noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper-noise)' opacity='.16'/%3E%3C/svg%3E");
+  border: 1px solid #eadfd2;
+  box-shadow: 0 25px 70px rgba(90, 55, 50, .13);
+  text-align: left;
+  animation: letter-enter 1s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.letter-content {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  line-height: 2;
+  color: #644c4a;
+  white-space: pre-wrap;
+}
+
+.typing-cursor {
+  animation: cursor-blink .7s step-end infinite;
+  color: #ad7078;
+}
+
+/* ANIMATIONS */
+
+@keyframes calendar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes year-flip {
+  0% {
+    transform: rotateX(-90deg) translateY(-8px);
+    opacity: 0;
+  }
+  45% {
+    opacity: .65;
+  }
+  100% {
+    transform: rotateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes firework-burst {
+  0% { transform: scale(.1); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes calendar-fade {
+  to {
+    opacity: 0;
+    transform: scale(.9);
+  }
+}
+
+@keyframes scene-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes letter-enter {
+  from {
+    opacity: 0;
+    transform: translateY(45px) scale(.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cursor-blink {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 480px) {
+  .letter {
+    min-height: 380px;
+    padding-top: 40px;
+  }
+
+  .letter-content {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
